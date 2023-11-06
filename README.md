@@ -46,3 +46,15 @@ location of each insured farm.
 - The use of oracles ensures reliable and tamper-proof weather data.
 - Smart contracts automate the insurance process, eliminating intermediaries.
 - Transparent and efficient claims process on the blockchain.
+
+## Teckstacks used
+- FrontEnd: NextJs
+- Backend: NextJs
+- Smart contracts: Solidity
+- blockchain platform: Ethereum
+- Chainlink VRF Oracle: To fetch reliable weather data, we would integrate with a Chainlink VRF (Verifiable Random Function) oracle. This oracle provides tamper-proof data from multiple sources, ensuring data reliability.
+- IPFS (InterPlanetary File System): You can use IPFS to store data off-chain, like policy documents, weather data, and other large files. IPFS provides a decentralized and efficient way to store and retrieve data.
+- Web3 library: Ether.js library allows front-end to interact with the blockchain and smart contracts. We can use these libraries to communicate with the smart contracts and trigger policy creation, claims, and other interactions.
+- NFT Standards: NFT (Non-Fungible Token)/ ERC-721. Each NFT can represent a unique insurance policy that farmers can purchase.
+- Testing and Development Tools: Tools like Truffle, Hardhat, and Ganache help you develop, test, and deploy smart contracts. Hardhat will be used in this project.
+- 
