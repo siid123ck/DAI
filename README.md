@@ -38,8 +38,8 @@ location of each insured farm.
 ## Example Scenario:
 - A farmer in a specific region purchases an insurance policy for their crop, contributing 10 DAI as a premium.
 - The Chainlink VRF oracle provides real-time weather data to the smart contract. Suppose heavy rainfall exceeding a predefined threshold occurs during the crop season.
-- The smart contract detects the adverse weather event and triggers an automatic payout to the affected farmer. The payout amount is based on the coverage amount specified in the policy (e.g., 100 DAI).
-- The farmer receives 100 DAI as compensation for the crop loss caused by heavy rainfall.
+- The smart contract detects the adverse weather event and triggers an automatic payout to the affected farmer. The payout amount is based on the coverage amount specified in the policy (e.g., 1000 DAI).
+- The farmer receives 1000 DAI as compensation for the crop loss caused by heavy rainfall.
 
 ## Benefits:
 - Farmers are protected against unpredictable weather conditions.
