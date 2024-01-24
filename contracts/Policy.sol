@@ -1,16 +1,14 @@
- // SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+interface GettingStartedFunctionsConsumer {
+    function weatherCondition() external view returns (string memory);
+}
 
 contract PolicyContract is ERC721, Ownable {
-
-    // Chainlink VRF variables
-    bytes32 internal keyHash;
-    uint256 internal fee;
-    uint256 public randomResult;
 
     uint public currentTokenId;
 
@@ -26,16 +24,19 @@ contract PolicyContract is ERC721, Ownable {
     // Mapping from token ID to Policy details
     mapping(uint256 => Policy) public policies;
 
+    // Reference to the Chainlink weather contract
+    GettingStartedFunctionsConsumer public weatherContract;
+
     // Events
     event PolicyPurchased(uint256 tokenId, uint256 coverageAmount, uint256 premium, uint256 duration);
     event PayoutTriggered(uint256 tokenId, uint256 payoutAmount);
 
     // Constructor
-    constructor()
+    constructor(address _weatherContract)
         ERC721("DecentralizedAgricultureInsurance", "DAI")
         Ownable(msg.sender)
     {
-      
+        weatherContract = GettingStartedFunctionsConsumer(_weatherContract);
     }
     
 
@@ -52,7 +53,6 @@ contract PolicyContract is ERC721, Ownable {
 
         currentTokenId++;
 
-
         emit PolicyPurchased(currentTokenId, coverageAmount, premium, duration);
     }
 
@@ -62,13 +62,11 @@ contract PolicyContract is ERC721, Ownable {
         Policy storage policy = policies[_tokenId];
         require(!policy.isClaimed, "Policy already claimed");
 
-        // Use Chainlink VRF to get random weather data
-        // requestRandomness(keyHash, fee);
+        // Check weather condition from the Chainlink weather contract
+        string memory weatherCondition = weatherContract.weatherCondition();
 
-        // Note: In a real application, you would use the randomness to determine weather conditions.
-
-        // For simplicity, assume payout is triggered if random number is even
-        if (randomResult % 2 == 0) {
+        // Payout if weather condition is 'Cloudy or Raining'
+        if (compareStrings(weatherCondition, "Cloudy or Raining")) {
             uint256 payoutAmount = policy.coverageAmount;
             // Transfer funds to the policy owner
             payable(ownerOf(_tokenId)).transfer(payoutAmount);
@@ -80,11 +78,8 @@ contract PolicyContract is ERC721, Ownable {
         }
     }
 
-    // Callback function for Chainlink VRF
-    function fulfillRandomness(bytes32 requestId, uint256 randomness) internal  {
-        randomResult = randomness;
+    // Helper function to compare string
+    function compareStrings(string memory a, string memory b) internal pure returns (bool) {
+        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
-
-  
-
 }
