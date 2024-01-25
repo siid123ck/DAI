@@ -57,4 +57,47 @@ location of each insured farm.
 - Web3 library: Ether.js library allows front-end to interact with the blockchain and smart contracts. We can use these libraries to communicate with the smart contracts and trigger policy creation, claims, and other interactions.
 - NFT Standards: NFT (Non-Fungible Token)/ ERC-721. Each NFT can represent a unique insurance policy that farmers can purchase.
 - Testing and Development Tools: Tools like Truffle, Hardhat, and Ganache help you develop, test, and deploy smart contracts. Hardhat will be used in this project.
-- 
+
+
+### Frontend: 
+Required pages for this project are:
+- Home Page: Overview of the insurance service.General information about the project.
+Option to navigate to other pages.
+- Policy Purchase Page: Form to allow users to purchase insurance policies.
+Input fields for coverage amount, premium, and duration, and button to submit the transaction.
+- Policy Details Page: Display details of the purchased policy. Information such as coverage amount, premium, duration, purchase time, and claim status.Option to trigger a payout (accessible only by the owner).
+
+- Weather Information Page: Display weather information obtained from Chainlink.
+Real-time or historical weather conditions.
+- Admin Dashboard (optional): If you have an admin role, a dashboard to manage policies and trigger payouts.
+Overview of policies, including their status and key details.
+- About Page: Detailed information about the project, its purpose, and the technology used, and team information if applicable.
+- Contact Page: Form or contact details for users to get in touch with support or ask questions.
+- FAQ Page: Frequently Asked Questions related to the insurance service and smart contracts.
+- Terms and Conditions / Privacy Policy Page: Legal information about the service, including terms and conditions and privacy policy.
+- Error Page: Generic error page that users can be redirected to in case of unexpected issues.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
