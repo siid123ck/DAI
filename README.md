@@ -65,7 +65,7 @@ Required pages for this project are:
 Option to navigate to other pages.
 - Policy Purchase Page: Form to allow users to purchase insurance policies.
 Input fields for coverage amount, premium, and duration, and button to submit the transaction.
-- Policy Details Page: Display details of the purchased policy. Information such as coverage amount, premium, duration, purchase time, and claim status.Option to trigger a payout (accessible only by the owner).
+- Policies Page: Display  the list of policy details. Information such as coverage amount, premium, duration, purchase time, and claim status.Option to trigger a payout (accessible only by the owner).
 
 - Weather Information Page: Display weather information obtained from Chainlink.
 Real-time or historical weather conditions.
