@@ -3,6 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 
 const Home = () => {
+  console.log(process.env.NEXT_PUBLIC_WEATHER_API_KEY, "ff") 
+
   return (
     <div className="container mx-auto p-8">
  
