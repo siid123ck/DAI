@@ -56,7 +56,7 @@ location of each insured farm.
 - IPFS (InterPlanetary File System): You can use IPFS to store data off-chain, like policy documents, weather data, and other large files. IPFS provides a decentralized and efficient way to store and retrieve data.
 - Web3 library: Ether.js library allows front-end to interact with the blockchain and smart contracts. We can use these libraries to communicate with the smart contracts and trigger policy creation, claims, and other interactions.
 - NFT Standards: NFT (Non-Fungible Token)/ ERC-721. Each NFT can represent a unique insurance policy that farmers can purchase.
-- Testing and Development Tools: Tools like Truffle, Hardhat, and Ganache help you develop, test, and deploy smart contracts. Hardhat will be used in this project.
+- Testing and Development Tools: We would use tools such Truffle, Hardhat, and Ganache to develop, test, and deploy smart contracts. Hardhat will be mostly used in this project.
 
 
 ### Frontend: 
