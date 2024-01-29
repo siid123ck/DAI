@@ -6,7 +6,7 @@ const Home = () => {
   console.log(process.env.NEXT_PUBLIC_WEATHER_API_KEY, "ff") 
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto p-8" style={{marginBottom:"100px"}}>
  
       <div className="mb-12">
         <div className="relative rounded-md overflow-hidden">

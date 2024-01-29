@@ -1,10 +1,11 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers'; // Import ethers.js
+import { useContract } from '@/context/ContractContext';
 
 const Policies = () => {
+  const contract = useContract();
   const [provider, setProvider] = useState(null);
-  const [contract, setContract] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [policies, setPolicies] = useState([
       {
@@ -27,40 +28,17 @@ const Policies = () => {
     },
   ]);
 
-  useEffect(() => {
-    const initProvider = async () => {
-      try {
-        const provider = await ethers.BrowserProvider;
-        const signer = provider.getSigner()
-        const instance = new ethers.Contract(
-          deployedNetwork.address,
-          PolicyContract.abi,
-          signer
-        );
-        setProvider(provider);
-        setAccounts(accounts);
-        setContract(instance);
-      } catch (error) {
-        console.error('Error initializing provider: ', error);
-      }
-    };
-    initProvider();
-  }, []);
 
   useEffect(() => {
     const loadPolicies = async () => {
-      if (contract) {
-        try {
-          const policiesCount = await contract.currentTokenId();
-          const policies = [];
-          for (let i = 0; i < policiesCount; i++) {
-            const policy = await contract.policies(i);
-            policies.push(policy);
+        if (contract) {
+          try {
+            const policies = await contract.getAllPolicies();
+            setPolicies(policies);
+            console.log(policies)
+          } catch (error) {
+            console.error('Error loading policies: ', error);
           }
-          setPolicies(policies);
-        } catch (error) {
-          console.error('Error loading policies: ', error);
-        }
       }
     };
     loadPolicies();
@@ -91,22 +69,22 @@ const Policies = () => {
         <div className="font-bold">Purchase Time</div>
         <div className="font-bold">Claim Status</div>
         {policies.map((policy, index) => (
-          <React.Fragment key={index}>
-            <div>{policy.tokenId}</div>
-            <div>{policy.coverageAmount}</div>
-            <div>{policy.premium}</div>
-            <div>{policy.duration}</div>
-            <div>{new Date(policy.purchaseTime * 1000).toLocaleString()}</div>
-            <div>{policy.isClaimed ? 'Claimed' : 'Not Claimed'}</div>
-            {accounts.length > 0 && accounts[0] === policy.owner && !policy.isClaimed && (
-              <button
-                onClick={() => triggerPayout(index)}
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-              >
-                Trigger Payout
-              </button>
-            )}
-          </React.Fragment>
+           <React.Fragment key={index}>
+           <div>{policy.tokenId}</div>
+           <div>{policy.coverageAmount}</div>
+           <div>{policy.premium}</div>
+           <div>{policy.duration}</div>
+           <div>{new Date(policy.purchaseTime * 1000).toLocaleString()}</div>
+           <div>{policy.isClaimed ? 'Claimed' : 'Not Claimed'}</div>
+           {accounts.length > 0 && accounts[0] === policy.owner && !policy.isClaimed && (
+             <button
+               onClick={() => triggerPayout(index)}
+               className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+             >
+               Trigger Payout
+             </button>
+           )}
+         </React.Fragment>
         ))}
       </div>
     </div>

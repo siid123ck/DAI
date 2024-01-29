@@ -1,5 +1,7 @@
 "use client"
+import { ethers } from 'ethers';
 import React, { useState } from 'react';
+import contractABI from "../../utils/policyContractABI.js";
 
 const PolicyPurchase = () => {
   // State to manage form inputs
@@ -13,14 +15,27 @@ const PolicyPurchase = () => {
     setCoverageAmount(Number(newPremium) * Number(duration));
   };
 
-  const onChangeDuration = (e) => {
+  const onChangeDuration =  (e) => {
     const newDuration = e.target.value;
     setDuration(newDuration);
     setCoverageAmount(Number(premium) * Number(newDuration));
   };
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+
+
+    const contractAddress = '0x18d5e4a4f9c25859446d6ce0ed7b3ad5f24b27c1';
+
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+    const transaction = await contract.purchasePolicy(premium, duration, {
+      value: ethers.parseEther(String(premium * duration)),
+    });
+
+    await transaction.wait();
     setCoverageAmount('');
     setPremium('');
     setDuration('');

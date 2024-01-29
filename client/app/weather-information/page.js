@@ -49,7 +49,7 @@ const WeatherInformation = () => {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto p-8" style={{marginBottom:"80px"}}>
       <h1 className="text-4xl font-bold mb-8">Weather Information</h1>
       <div className="grid grid-cols-3 gap-4 mb-8">
         {randomCities.map((city, index) => (
