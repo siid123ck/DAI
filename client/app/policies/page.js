@@ -1,11 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers'; // Import ethers.js
 import { useContract } from '@/context/ContractContext';
-
 const Policies = () => {
   const contract = useContract();
-  const [provider, setProvider] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [policies, setPolicies] = useState([
       {
@@ -31,11 +28,13 @@ const Policies = () => {
 
   useEffect(() => {
     const loadPolicies = async () => {
+      console.log(contract)
         if (contract) {
+          console.log(contract)
           try {
-            const policies = await contract.getAllPolicies();
-            setPolicies(policies);
-            console.log(policies)
+            // const policies = await contract.getAllPolicies();
+            // setPolicies(policies);
+            console.log(await contract.currentTokenId())
           } catch (error) {
             console.error('Error loading policies: ', error);
           }

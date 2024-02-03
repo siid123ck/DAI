@@ -1,21 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity ^0.8.20;
 
 import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/FunctionsClient.sol";
 import {ConfirmedOwner} from "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
 import {FunctionsRequest} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/libraries/FunctionsRequest.sol";
 
-/**
- * Request testnet LINK and ETH here: https://faucets.chain.link/
- * Find information on LINK Token Contracts and get the latest ETH and LINK faucets here: https://docs.chain.link/resources/link-token-contracts/
- */
 
-/**
- * @title GettingStartedFunctionsConsumer
- * @notice This is an example contract to show how to make HTTP requests using Chainlink
- * @dev This contract uses hardcoded values and should not be used in production.
- */
-contract GettingStartedFunctionsConsumer is FunctionsClient, ConfirmedOwner {
+contract WeatherApiOracle is FunctionsClient, ConfirmedOwner {
     using FunctionsRequest for FunctionsRequest.Request;
 
     // State variables to store the last request ID, response, and error
@@ -34,8 +25,7 @@ contract GettingStartedFunctionsConsumer is FunctionsClient, ConfirmedOwner {
         bytes err
     );
 
-    // Router address - Hardcoded for Mumbai
-    // Check to get the router address for your supported network https://docs.chain.link/chainlink-functions/supported-networks
+  
     address router = 0x6E2dc0F9DB014aE19888F539E59285D2Ea04244C;
 
     // JavaScript source code
@@ -57,25 +47,15 @@ contract GettingStartedFunctionsConsumer is FunctionsClient, ConfirmedOwner {
     // Callback gas limit
     uint32 gasLimit = 300000;
 
-    // donID - Hardcoded for Mumbai
-    // Check to get the donID for your supported network https://docs.chain.link/chainlink-functions/supported-networks
+    
     bytes32 donID =
         0x66756e2d706f6c79676f6e2d6d756d6261692d31000000000000000000000000;
 
     // State variable to store the returned weather information
     string public weatherCondition;
 
-    /**
-     * @notice Initializes the contract with the Chainlink router address and sets the contract owner
-     */
     constructor() FunctionsClient(router) ConfirmedOwner(msg.sender) {}
 
-    /**
-     * @notice Sends an HTTP request for weather information
-     * @param subscriptionId The ID for the Chainlink subscription
-     * @param args The arguments to pass to the HTTP request (e.g., city)
-     * @return requestId The ID of the request
-     */
     function sendRequest(
         uint64 subscriptionId,
         string[] calldata args
@@ -95,12 +75,6 @@ contract GettingStartedFunctionsConsumer is FunctionsClient, ConfirmedOwner {
         return s_lastRequestId;
     }
 
-    /**
-     * @notice Callback function for fulfilling a request
-     * @param requestId The ID of the request to fulfill
-     * @param response The HTTP response data
-     * @param err Any errors from the Functions request
-     */
     function fulfillRequest(
         bytes32 requestId,
         bytes memory response,

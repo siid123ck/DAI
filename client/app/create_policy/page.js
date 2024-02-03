@@ -1,10 +1,11 @@
 "use client"
+import { useContract } from '@/context/ContractContext';
 import { ethers } from 'ethers';
 import React, { useState } from 'react';
-import contractABI from "../../utils/policyContractABI.js";
 
 const PolicyPurchase = () => {
   // State to manage form inputs
+  const contract = useContract();
   const [coverageAmount, setCoverageAmount] = useState(0);
   const [premium, setPremium] = useState('');
   const [duration, setDuration] = useState('');
@@ -23,19 +24,18 @@ const PolicyPurchase = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-
-
-    const contractAddress = '0x18d5e4a4f9c25859446d6ce0ed7b3ad5f24b27c1';
-
-    const contract = new ethers.Contract(contractAddress, contractABI, signer);
-
-    const transaction = await contract.purchasePolicy(premium, duration, {
-      value: ethers.parseEther(String(premium * duration)),
-    });
-
-    await transaction.wait();
+    if(window.ethereum == null){
+      console.log("metamask not installed")
+    } else{
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      // const signer = await provider.getSigner();
+  
+      const transaction = await contract.purchasePolicy(premium, duration, {
+        value: ethers.parseEther(String(premium * duration)),
+      });
+  
+      await transaction.wait();
+    }
     setCoverageAmount('');
     setPremium('');
     setDuration('');

@@ -5,7 +5,6 @@ import { POLICY_CONTRACT_ADDRESS } from '@/utils/constantValues';
 import { policyContractAbi } from '@/utils/policyContractABI';
 import { redirect } from 'next/dist/server/api-utils';
 
-
 const ContractContext = createContext();
 
 export const useContract = () => {
@@ -17,6 +16,9 @@ export const ContractProvider = ({ children }) => {
 
   useEffect(() => {
     const initProvider = async () => {
+    if (window.ethereum == null) {
+        console.log("Meta mask is not installed")
+    } else {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum)
         const signer = await provider.getSigner();
@@ -25,11 +27,13 @@ export const ContractProvider = ({ children }) => {
           policyContractAbi,
           signer
         );
+
         setContract(instance);
       } catch (error) {
         console.error('Error initializing contract: ', error);
         redirect("./error")
       }
+    }
     };
     initProvider();
   }, []);
