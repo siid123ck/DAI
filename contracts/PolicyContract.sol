@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-interface  WeatherApiOracle{
+interface  IWeatherApiOracle{
     function weatherCondition() external view returns (string memory);
 }
 
@@ -26,7 +26,7 @@ contract PolicyContract is ERC721, Ownable {
     mapping(uint256 => Policy) public policies;
 
     // Reference to the Chainlink weather contract
-    WeatherApiOracle public weatherContract;
+    IWeatherApiOracle public weatherContract;
 
     // Events
     event PolicyPurchased(uint256 tokenId, uint256 premium, uint256 duration);
@@ -37,7 +37,7 @@ contract PolicyContract is ERC721, Ownable {
         ERC721("DecentralizedAgricultureInsurance", "DAI")
         Ownable(msg.sender)
     {
-        weatherContract = WeatherApiOracle(_weatherApiContract);
+        weatherContract = IWeatherApiOracle(_weatherApiContract);
     }
     
 
