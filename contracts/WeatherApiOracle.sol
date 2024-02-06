@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity 0.8.19;
 
 import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/FunctionsClient.sol";
 import {ConfirmedOwner} from "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
@@ -26,7 +26,7 @@ contract WeatherApiOracle is FunctionsClient, ConfirmedOwner {
     );
 
   
-    address router = 0x6E2dc0F9DB014aE19888F539E59285D2Ea04244C;
+    address router = 0xb83E47C2bC239B3bf370bc41e1459A34b41238D0;
 
     // JavaScript source code
     // Check weather conditions from the weather API.
@@ -45,7 +45,7 @@ contract WeatherApiOracle is FunctionsClient, ConfirmedOwner {
         "return Functions.encodeString(isCloudyOrRaining ? 'Cloudy or Raining' : 'Other');";
 
     // Callback gas limit
-    uint32 gasLimit = 300000;
+    uint32 gasLimit = 30000000;
 
     
     bytes32 donID =
