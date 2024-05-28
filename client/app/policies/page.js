@@ -23,6 +23,42 @@ const Policies = () => {
       isClaimed: true,
       owner: '0x987654321...' // Replace with an actual Ethereum address
     },
+      {
+      tokenId: 1, // Example tokenId
+      coverageAmount: 1000,
+      premium: 50,
+      duration: 12,
+      purchaseTime: Date.now(),
+      isClaimed: false,
+      owner: '0x123456789...' // Replace with an actual Ethereum address
+    },
+    {
+      tokenId: 2, // Example tokenId
+      coverageAmount: 2000,
+      premium: 100,
+      duration: 6,
+      purchaseTime: Date.now() - 86400000, // 1 day ago
+      isClaimed: true,
+      owner: '0x987654321...' // Replace with an actual Ethereum address
+    },
+      {
+      tokenId: 1, // Example tokenId
+      coverageAmount: 1000,
+      premium: 50,
+      duration: 12,
+      purchaseTime: Date.now(),
+      isClaimed: false,
+      owner: '0x123456789...' // Replace with an actual Ethereum address
+    },
+    {
+      tokenId: 2, // Example tokenId
+      coverageAmount: 2000,
+      premium: 100,
+      duration: 6,
+      purchaseTime: Date.now() - 86400000, // 1 day ago
+      isClaimed: true,
+      owner: '0x987654321...' // Replace with an actual Ethereum address
+    },
   ]);
 
 
@@ -58,7 +94,7 @@ const Policies = () => {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="bg-slate-700 text-white mx-auto p-8" style={{ paddingTop: '100px' }}>
       <h1 className="text-4xl font-bold mb-8">Policies</h1>
       <div className="grid grid-cols-6 gap-4">
         <div className="font-bold">Token ID </div>
