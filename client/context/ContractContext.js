@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { POLICY_CONTRACT_ADDRESS } from '@/utils/constantValues';
 import { policyContractAbi } from '@/utils/policyContractABI';
-import { redirect } from 'next/dist/server/api-utils';
+import { useRouter } from 'next/navigation';
 
 const ContractContext = createContext();
 
@@ -13,11 +13,12 @@ export const useContract = () => {
 
 export const ContractProvider = ({ children }) => {
   const [contract, setContract] = useState(null);
+  const router = useRouter()
 
   useEffect(() => {
     const initProvider = async () => {
-    if (window.ethereum == null) {
-        console.log("Meta mask is not installed")
+    if (window.ethereum !== undefined) {
+        console.log("Meta mask is not connected")
     } else {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum)
@@ -31,7 +32,7 @@ export const ContractProvider = ({ children }) => {
         setContract(instance);
       } catch (error) {
         console.error('Error initializing contract: ', error);
-        redirect("./error")
+        router.push("./error")
       }
     }
     };

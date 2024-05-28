@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Header = () => {
   const [isWalletConnected, setWalletConnected] = useState(false);
@@ -18,42 +18,56 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const checkIfWalletIsConnected = async () => {
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          setWalletConnected(true);
+        }
+      }
+    };
+
+    checkIfWalletIsConnected();
+  }, []);
+
+
   return (
-    <div className="bg-gray-600 text-white p-4">
-      <header className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">
-          <Link href="/">DAI</Link>
+    <div className="bg-transparent text-white py-4 px-6 fixed w-full z-10">
+      <header className="container mx-auto flex justify-between items-center">
+        <h1 className="text-xl font-bold">
+          <Link href="/"
+             className="hover:text-gray-300">DAI
+          </Link>
         </h1>
-        <nav className="flex space-x-4">
-          <Link href="/policies" className="cursor-pointer">
-            Policies
-          </Link >
-          <Link href="/weather-information" className="cursor-pointer">
-            Weather Information
+        <nav className="flex space-x-6">
+          <Link href="/policies"
+             className="hover:text-gray-300">Policies
           </Link>
-          <Link href="/about-us" className="cursor-pointer">
-            About Us
+          <Link href="/weather-information"
+             className="hover:text-gray-300">Weather Information
           </Link>
-          <Link href="/contact-us" className="cursor-pointer">
-            Contact Us
+          <Link href="/about-us"
+             className="hover:text-gray-300">About Us
           </Link>
-          <Link href="/faqs" className="cursor-pointer">
-            FAQs
+          <Link href="/contact-us"
+             className="hover:text-gray-300">Contact Us
           </Link>
-          <Link href="/create_policy" className="cursor-pointer">
-            Create Policy
+          <Link href="/faqs"
+             className="hover:text-gray-300">FAQs
+          </Link>
+          <Link href="/create_policy"
+             className="hover:text-gray-300">Create Policy
           </Link>
         </nav>
         {isWalletConnected ? (
-          <button className="bg-green-500 text-white rounded-md py-2 px-4">
+          <button className="text-white border border-white hover:bg-white hover:text-black transition duration-300 ease-in-out py-2 px-4 rounded-full">
             Connected
           </button>
         ) : (
-          <button
-            className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600"
-            onClick={connectWallet}
-          >
-            Connect Wallet
+          <button className="text-white border border-white hover:bg-white hover:text-black 
+          transition duration-300 ease-in-out py-2 px-4 rounded-full" onClick={connectWallet}>
+            Connect wallet
           </button>
         )}
       </header>
