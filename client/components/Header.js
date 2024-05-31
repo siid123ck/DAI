@@ -56,6 +56,9 @@ const Header = () => {
           <Link href="/faqs"
              className="hover:text-gray-300">FAQs
           </Link>
+          <Link href="/faqs"
+             className="hover:text-gray-300">DAO
+          </Link>
           <Link href="/create_policy"
              className="hover:text-gray-300">Create Policy
           </Link>

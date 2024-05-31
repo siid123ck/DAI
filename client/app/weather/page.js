@@ -49,7 +49,9 @@ const WeatherInformation = () => {
   };
 
   return (
-    <div className="container mx-auto p-8" style={{marginBottom:"80px"}}>
+    <div 
+    className="bg-slate-700 mx-auto px-4 py-8 text-white" style={{
+      padding: '100px'}}>
       <h1 className="text-4xl font-bold mb-8">Weather Information</h1>
       <div className="grid grid-cols-3 gap-4 mb-8">
         {randomCities.map((city, index) => (
@@ -63,7 +65,9 @@ const WeatherInformation = () => {
       <form onSubmit={handleSubmit} className="mb-8 text-center">
         <label htmlFor="cityName" className="block mb-2">Enter City Name:</label>
         <input type="text" id="cityName" name="cityName" value={cityName} onChange={handleInputChange} className="border p-2 rounded-md mb-4" />
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Get Weather</button>
+        <button type="submit" 
+        className="text-white border border-white hover:bg-white hover:text-black
+        transition duration-300 ease-in-out py-2 px-4 rounded-full ml-2">Get Weather</button>
       </form>
       {cityWeather && (
         <div className='text-center'>
